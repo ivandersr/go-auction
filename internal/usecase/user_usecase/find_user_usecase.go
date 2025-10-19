@@ -16,14 +16,13 @@ type UserOutputDTO struct {
 	Name string `json:"name"`
 }
 
-func NewUserUseCase(userRepository user.UserRepostitoryInterface) UserUsecaseInterface {
-	return &UserUsecase{UserRepository: userRepository}
-}
-
 type UserUsecaseInterface interface {
 	FindUserById(ctx context.Context, id string) (*UserOutputDTO, *internal_errors.InternalError)
 }
 
+func NewUserUseCase(userRepository user.UserRepostitoryInterface) UserUsecaseInterface {
+	return &UserUsecase{UserRepository: userRepository}
+}
 func (u *UserUsecase) FindUserById(ctx context.Context, id string) (*UserOutputDTO, *internal_errors.InternalError) {
 	foundUser, err := u.UserRepository.FindUserById(ctx, id)
 
